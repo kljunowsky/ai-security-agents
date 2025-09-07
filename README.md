@@ -11,3 +11,11 @@ Whether you're a red teamer, penetration tester, security researcher, or AI enth
 🔍 Explore ethical hacking methodologies, best practices, and compliance-aware guidance.
 
 🧠 Extend your LLM prompts with domain-specific intelligence for security, DevSecOps, and threat hunting use cases.
+
+## Penetration Tester
+
+A set of collection of penetration testing agents
+
+## Application Security
+
+## Threat Intelligence
