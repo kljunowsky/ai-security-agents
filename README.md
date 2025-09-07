@@ -19,7 +19,6 @@ Whether you're a red teamer, penetration tester, security researcher, AppSec eng
   - [Penetration Tester](#penetration-tester)
   - [Application Security](#application-security)
   - [Threat Intelligence](#threat-intelligence)
-- [Repository Structure](#repository-structure)
 - [Safety & Ethics](#safety--ethics)
 - [Contributing](#contributing)
 - [License](#license)
