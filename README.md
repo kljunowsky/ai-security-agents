@@ -100,7 +100,6 @@ print(resp.choices[0].message.content)
 3. Include a brief rationale and, where relevant, references.  
 4. Open a PR—describe scope, testing notes, and expected outcomes.
 
----
 
 ## License
 
