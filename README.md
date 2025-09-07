@@ -74,7 +74,7 @@ print(resp.choices[0].message.content)
 
 ### Application Security
 - **Application Security Architect — Platform Security** — secure-by-default reference architectures, guardrails-as-code (OPA/CI/CD/cloud), zero-trust identity, tenant isolation, supply-chain, runtime, and observability.  
-  → **Open:** [`Application-Security-Engineer/Application-Security-Architect-Platform-Security.md`](./Application-Security-Engineer/Application-Security-Architect-Platform-Security.md)
+  → **Open:** [`Application-Security-Engineer/Application-Security-Architect-Platform-Security.md`](./Application-Security/Application-Security-Architect-Platform-Security.md)
 
 ### Threat Intelligence
 - **Threat Intelligence — Hunter (Elite)** — PIRs, collection plans, adversary TTP mapping (ATT&CK), hunt books, detections (Sigma/YARA/KQL/SPL), and operational handoffs to SOC/IR/AppSec.  
