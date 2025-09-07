@@ -29,7 +29,7 @@ Whether you're a red teamer, penetration tester, security researcher, AppSec eng
 ## Get Started (Quick Links)
 
 - **Open Web App Pentester** → [`Penetration-Tester/Penetration-Tester-Web-App.md`](./Penetration-Tester/Penetration-Tester-Web-App.md)  
-- **Open AppSec Architect – Platform Security** → [`Application-Security-Engineer/Application-Security-Architect-Platform-Security.md`](.Application-Security/Application-Security-Architect-Platform-Security.mdd)  
+- **Open AppSec Architect – Platform Security** → [`Application-Security/Application-Security-Architect-Platform-Security.md`](./Application-Security/Application-Security-Architect-Platform-Security.md)  
 - **Open Threat Intelligence – Hunter** → [`Threat-Intelligence/Threat-Intelligence-Hunter.md`](./Threat-Intelligence/Threat-Intelligence-Hunter.md)
 
 > Click any link above, copy the file content, and paste it as your **System** message in ChatGPT / OpenAI.
