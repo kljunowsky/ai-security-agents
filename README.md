@@ -39,27 +39,103 @@ Whether you're a red teamer, penetration tester, security researcher, AppSec eng
 ## Quick Start
 
 ### Use in ChatGPT (UI)
-1. Open a new chat.  
-2. **Paste an agent file** (from links below) as the first message (acts like a *System* prompt).  
-3. Provide your scope, goals, and constraints.  
-4. Ask task-specific questions or drop artifacts (logs, requests, code) to analyze.
+Start a fresh chat (this keeps the agent instructions clean).
+
+Open one agent file and copy its entire contents:
+
+→ **Open:** [`Penetration-Tester/Penetration-Tester-Web-App.md`](./Penetration-Tester/Penetration-Tester-Web-App.md)
+
+→ **Open:** [`Application-Security-Engineer/Application-Security-Architect-Platform-Security.md`](./Application-Security/Application-Security-Architect-Platform-Security.md)
+
+ → **Open:** [`Threat-Intelligence/Threat-Intelligence-Hunter.md`](./Threat-Intelligence/Threat-Intelligence-Hunter.md)
+
+Paste it as the very first message. (This acts like “system” guidance for the session.)
+
+Ask for an acknowledgment so the model locks in the role (e.g., “Summarize your mission and list the first 5 actions you’ll take based on my scope.”).
+
+Provide scope, constraints, and artifacts (URLs, logs, requests, code).
+
+One agent per chat. For multi‑role workflows, paste a short summary into a new chat with the next agent.
+
+>Tip: If you use ChatGPT’s “Create a GPT”, paste the agent file into the Instructions field to make a reusable GPT persona.
 
 ### Use with OpenAI API (Python)
+
+>Works with the official openai Python SDK (pip install openai python-dotenv).
+The SDK defaults to reading OPENAI_API_KEY from your environment; .env is optional but recommended for local dev
+
+#### 1) Set your API key (one‑time)
+
+***macOS / Linux (bash/zsh):***
+
+```
+export OPENAI_API_KEY="sk-...your_key..."
+```
+
+***Windows (PowerShell):***
+
+```
+setx OPENAI_API_KEY "sk-...your_key..."
+# Restart your terminal to pick up the change
+```
+
+***Optional (.env) for local dev:***
+```
+echo 'OPENAI_API_KEY=sk-...your_key...' > .env
+```
+
+#### 2) Minimal example (Chat Completions)
 ```python
+# pip install openai python-dotenv
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 from openai import OpenAI
 
-client = OpenAI()
-with open("Penetration-Tester/Penetration-Tester-Web-App.md", "r", encoding="utf-8") as f:
-    system_msg = f.read()
+# Load .env if present (OPENAI_API_KEY)
+load_dotenv()
 
-resp = client.chat.completions.create(
+# Read an agent file (pick one)
+AGENT_PATH = Path("Penetration-Tester/Penetration-Tester-Web-App.md")
+agent_instructions = AGENT_PATH.read_text(encoding="utf-8")
+
+client = OpenAI(  # The SDK will automatically read OPENAI_API_KEY
+    api_key=os.environ.get("OPENAI_API_KEY")  # explicit for clarity
+)
+
+# Your task for the agent
+user_task = """<task for agent>"""
+
+resp = client.chat.completions.create(  # Chat Completions is supported indefinitely
+    model="gpt-4o", # Choose a different model
+    messages=[
+        {"role": "system", "content": agent_instructions},
+        {"role": "user", "content": user_task},
+    ],
+    temperature=0.2,
+)
+
+print(resp.choices[0].message.content)
+```
+#### 3) Streaming (optional) — print tokens as they arrive
+```python
+from openai import OpenAI
+from pathlib import Path
+from dotenv import load_dotenv; load_dotenv()
+
+agent = Path("Threat-Intelligence/Threat-Intelligence-Hunter.md").read_text(encoding="utf-8")
+client = OpenAI()
+
+with client.chat.completions.with_streaming_response.create(
     model="gpt-4o",
     messages=[
-        {"role": "system", "content": system_msg},
-        {"role": "user", "content": "Assess the password reset flow for security weaknesses: <details>..."}
-    ]
-)
-print(resp.choices[0].message.content)
+        {"role": "system", "content": agent},
+        {"role": "user", "content": "Draft a PIR + hunt plan for OAuth consent phishing in our SaaS stack."}
+    ],
+) as stream_resp:
+    for line in stream_resp.iter_lines():
+        # Each line is an SSE event fragment; print raw or parse as needed
+        print(line)
 ```
 
 > **Tip:** Use one agent per chat for the clearest results. For multi-role workflows, summarize output and start a new chat with the next agent.
